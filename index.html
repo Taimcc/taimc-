@@ -1,0 +1,171 @@
+<!DOCTYPE html>  
+<html lang="zh">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />  
+  <title>健身记录 · 高端版</title>  
+  <script src="https://cdn.tailwindcss.com"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+  <link rel="manifest" href="manifest.json" />  
+  <meta name="theme-color" content="#ffffff"/>  
+</head>  
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen">  
+  <header class="sticky top-0 bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-3 shadow-md z-10">  
+    <h1 class="text-xl font-bold text-center">我的健身追踪</h1>  
+  </header>  
+
+  <main class="max-w-md mx-auto pt-4 pb-24 px-4">  
+    <div class="grid grid-cols-2 gap-4 mb-4">  
+      <button class="rounded-xl p-3 bg-gradient-to-r from-teal-400 to-cyan-400 text-white font-semibold shadow-md" onclick="showSection('training')">训练计划</button>  
+      <button class="rounded-xl p-3 bg-gradient-to-r from-teal-400 to-cyan-400 text-white font-semibold shadow-md" onclick="showSection('diet')">饮食计划</button>  
+      <button class="rounded-xl p-3 bg-gradient-to-r from-teal-400 to-cyan-400 text-white font-semibold shadow-md" onclick="showSection('shopping')">购物清单</button>  
+      <button class="rounded-xl p-3 bg-gradient-to-r from-teal-400 to-cyan-400 text-white font-semibold shadow-md" onclick="showSection('guide')">动作指南</button>  
+      <button class="col-span-2 rounded-xl p-3 bg-gradient-to-r from-teal-400 to-cyan-400 text-white font-semibold shadow-md" onclick="showSection('weightTracker')">体重记录 (含图表)</button>  
+    </div>  
+
+    <div id="sectionContent" class="bg-white shadow-md rounded-xl p-4">  
+      <section id="training" class="hidden transition-opacity duration-300">  
+        <h2 class="text-lg font-bold mb-3 text-teal-600">第一周训练计划</h2>  
+        <ul class="list-disc list-inside space-y-2 text-sm leading-relaxed">  
+          <li>  
+            <strong class="text-teal-700">周一：胸部 + 三头肌 + 有氧</strong><br>  
+            平板杠铃卧推、哑铃上斜卧推、绳索下压、机械飞鸟、有氧 30 分钟  
+          </li>  
+          <li>  
+            <strong class="text-teal-700">周二：背部 + 二头肌 + 有氧</strong><br>  
+            高位下拉、坐姿划船、哑铃弯举、绳索面拉、有氧 30 分钟  
+          </li>  
+        </ul>  
+      </section>  
+
+      <section id="diet" class="hidden transition-opacity duration-300">  
+        <h2 class="text-lg font-bold mb-3 text-teal-600">第一周饮食计划</h2>  
+        <ul class="list-disc list-inside space-y-2 text-sm leading-relaxed">  
+          <li><strong class="text-teal-700">周一午餐：</strong>藜麦饭 + 鸡胸肉 + 清炒西兰花</li>  
+          <li><strong class="text-teal-700">周一晚餐：</strong>红薯 + 三文鱼 + 蒜蓉菠菜</li>  
+          <li><strong class="text-teal-700">周二午餐：</strong>糙米饭 + 清蒸鳕鱼 + 炒青椒</li>  
+          <li><strong class="text-teal-700">周二晚餐：</strong>全麦面包 + 金枪鱼 + 牛油果沙拉</li>  
+        </ul>  
+      </section>  
+
+      <section id="shopping" class="hidden transition-opacity duration-300">  
+        <h2 class="text-lg font-bold mb-3 text-teal-600">本周购物清单</h2>  
+        <ul class="space-y-2 text-sm leading-relaxed">  
+          <li><strong class="text-teal-700">蛋白质类：</strong> 鸡胸肉、三文鱼、鳕鱼等</li>  
+          <li><strong class="text-teal-700">主食类：</strong> 糙米、藜麦、全麦面包等</li>  
+          <li><strong class="text-teal-700">蔬菜类：</strong> 西兰花、菠菜、青椒等</li>  
+        </ul>  
+      </section>  
+
+      <section id="guide" class="hidden transition-opacity duration-300">  
+        <h2 class="text-lg font-bold mb-3 text-teal-600">训练动作指南</h2>  
+        <ul class="list-disc list-inside space-y-2 text-sm leading-relaxed">  
+          <li>  
+            <strong class="text-teal-700">平板杠铃卧推：</strong> 肘部微收，下放吸气、推起呼气，核心收紧  
+          </li>  
+          <li>  
+            <strong class="text-teal-700">哑铃上斜卧推：</strong> 上斜15-30°，稳住肩关节，避免过度外展肘  
+          </li>  
+        </ul>  
+      </section>  
+
+      <section id="weightTracker" class="hidden transition-opacity duration-300">  
+        <h2 class="text-lg font-bold mb-3 text-teal-600">体重记录 (含折线图)</h2>  
+        <label for="weightInput" class="block mb-1 text-sm font-medium text-gray-700">输入今日体重 (kg):</label>  
+        <div class="flex items-center mb-4">  
+          <input id="weightInput" type="number" step="0.1" class="flex-1 border border-gray-300 rounded-l-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-teal-300" placeholder="示例: 66.5" />  
+          <button class="bg-teal-500 text-white px-4 py-1.5 rounded-r-md font-semibold hover:bg-teal-600 transition-colors" onclick="addWeight()">记录</button>  
+        </div>  
+
+        <div id="weightList" class="text-sm text-gray-700 mb-4 space-y-1"></div>  
+        <canvas id="weightChart" width="400" height="300"></canvas>  
+      </section>  
+    </div>  
+  </main>  
+
+  <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 py-2">  
+    <div class="text-center text-xs text-gray-400">© 2024 健身计划 · 高端版 PWA</div>  
+  </footer>  
+
+  <script>  
+    function showSection(sectionId) {  
+      document.querySelectorAll('#sectionContent > section').forEach(sec => {  
+        sec.classList.add('hidden');  
+      });  
+      document.getElementById(sectionId).classList.remove('hidden');  
+    }  
+    showSection('training'); // 默认显示  
+
+    const localStorageKey = 'myWeightRecords';  
+    const weightListEl = document.getElementById('weightList');  
+    let chartInstance = null;  
+
+    function loadWeightData() {  
+      weightListEl.innerHTML = '';  
+      const dataString = localStorage.getItem(localStorageKey);  
+      if (!dataString) {  
+        updateChart([]);  
+        return;  
+      }  
+      const records = JSON.parse(dataString);  
+      records.slice().reverse().forEach(record => {  
+        const div = document.createElement('div');  
+        div.innerText = `${record.date} - ${record.weight} kg`;  
+        weightListEl.appendChild(div);  
+      });  
+      updateChart(records.slice(-7));  
+    }  
+
+    function addWeight() {  
+      const input = document.getElementById('weightInput');  
+      const weightValue = input.value.trim();  
+      if (!weightValue) {  
+        alert('请输入体重数值');  
+        return;  
+      }  
+      const dateString = new Date().toLocaleString('zh-CN', { hour12: false });  
+      const dataString = localStorage.getItem(localStorageKey);  
+      let records = dataString ? JSON.parse(dataString) : [];  
+      records.push({ date: dateString, weight: weightValue });  
+      localStorage.setItem(localStorageKey, JSON.stringify(records));  
+      input.value = '';  
+      loadWeightData();  
+    }  
+
+    function updateChart(data) {  
+      const ctx = document.getElementById('weightChart').getContext('2d');  
+      if (chartInstance) chartInstance.destroy();  
+      chartInstance = new Chart(ctx, {  
+        type: 'line',  
+        data: {  
+          labels: data.map(r => r.date.split(' ')[0].split('/').slice(-2).join('/')),  
+          datasets: [{  
+            label: '体重(kg)',  
+            data: data.map(r => r.weight),  
+            borderColor: '#14b8a6',  
+            backgroundColor: 'rgba(20, 184, 166, 0.1)',  
+            fill: true,  
+            tension: 0.2  
+          }]  
+        },  
+        options: {  
+          responsive: true,  
+          scales: {  
+            y: { beginAtZero: false }  
+          }  
+        }  
+      });  
+    }  
+
+    window.onload = loadWeightData;  
+
+    if ('serviceWorker' in navigator) {  
+      window.addEventListener('load', () => {  
+        navigator.serviceWorker.register('service-worker.js')  
+          .then(reg => console.log('Service Worker 注册成功:', reg))  
+          .catch(err => console.log('Service Worker 注册失败:', err));  
+      });  
+    }  
+  </script>  
+</body>  
+</html>
